@@ -38,6 +38,10 @@ class RWFreeplayState extends MusicBeatState
     public var categoryCount:Int = 0;
     
     override function create() {
+
+        #if desktop
+		DiscordClient.changePresence("Choosing freeplay Category", null);
+		#end
         
         var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('rwmmenu/backgrounds/05'));
         bg.updateHitbox();
@@ -190,7 +194,7 @@ catName.alignment = FlxTextAlign.CENTER;
 
         if(categoryCount == 0)
         {
-            MusicBeatState.switchState(new StorySongState()); 
+            MusicBeatState.switchState(new FreeplayState()); 
         }
         else if(categoryCount == 1)
             {

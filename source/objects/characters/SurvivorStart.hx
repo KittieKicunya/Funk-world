@@ -10,7 +10,7 @@ class SurvivorStart extends FlxSprite {
     private static inline final ACCELERATION:Int = 800;
 	private static inline final DRAG:Int = 800;
 	private static inline final GRAVITY:Int = 1400;
-	private static inline final JUMP_FORCE:Int = -800;
+	private static inline final JUMP_FORCE:Int = -600;
 	private static inline final WALK_SPEED:Int = 300;
 	private static inline final RUN_SPEED:Int = 350;
 	private static inline final FALLING_SPEED:Int = 800;
@@ -60,18 +60,25 @@ class SurvivorStart extends FlxSprite {
                     flipX = true;
                     direction = -1;
                     acceleration.x -= ACCELERATION;
-                    animation.play('walk');
+                    if (velocity.y == 0)
+                        {
+                            animation.play('walk');
+                        }
                 }
                 else if (FlxG.keys.pressed.RIGHT)
                 {
                     flipX = false;
                     direction = 1;
                     acceleration.x += ACCELERATION;
-                    animation.play('walk');
+                    if (velocity.y == 0)
+                    {
+                        animation.play('walk');
+                    }
+                    
                 }
                 else
                 {
-                    if (!FlxG.keys.justPressed.SPACE)
+                    if (!FlxG.keys.justPressed.SPACE && velocity.y == 0)
                     {
                         animation.play('idle');
                     }

@@ -70,6 +70,11 @@ class RvMMenuState extends MusicBeatState {
 
     override function create() {
 
+
+        #if desktop
+		DiscordClient.changePresence("In main menu", null);
+		#end
+
         menuBG = new FlxSprite(0,0).loadGraphic(randomBG());
 		menuBG.updateHitbox();
 		menuBG.antialiasing = true;
