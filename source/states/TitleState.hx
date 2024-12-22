@@ -416,7 +416,7 @@ class TitleState extends MusicBeatState
 					if (mustUpdate) {
 						MusicBeatState.switchState(new OutdatedState());
 					} else {
-						MusicBeatState.switchState(new MainMenuState());
+						MusicBeatState.switchState(new RvMMenuState());
 					}
 					closedState = true;
 				});
@@ -454,7 +454,7 @@ class TitleState extends MusicBeatState
 								function(twn:FlxTween) {
 									FlxTransitionableState.skipNextTransIn = true;
 									FlxTransitionableState.skipNextTransOut = true;
-									MusicBeatState.switchState(new TitleState());
+									MusicBeatState.switchState(new TitulState());
 								}
 							});
 							FlxG.sound.music.fadeOut();
