@@ -72,7 +72,7 @@ class FreeplayState extends MusicBeatState
 		var i:Int = 0; 
 		for (items in songsfake)
 		{
-			addSong(items, i, items, FlxColor.fromRGB(255, 255, 255));
+			addSong(items, i, items, FlxColor.fromRGB(146, 113, 253));
 			i++;
 		}
 		
