@@ -15,6 +15,13 @@ class Difficulty
 		if(num == null) num = PlayState.storyDifficulty;
 
 		var fileSuffix:String = list[num];
+
+		if (num == -1)
+		{
+			fileSuffix = '';
+			return Paths.formatToSongPath(fileSuffix);
+		}
+
 		if(fileSuffix != defaultDifficulty)
 		{
 			fileSuffix = '-' + fileSuffix;

@@ -1,6 +1,6 @@
    {
         "song": "Survivorship",
         "songDescription": "This is just start",
-        "songCategory": "Story",
-        "songDiff": "Normal"
+        "songDiff": "Normal",
+        "category": "Campaign"
     }

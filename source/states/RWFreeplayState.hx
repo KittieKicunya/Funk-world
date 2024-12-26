@@ -194,16 +194,19 @@ catName.alignment = FlxTextAlign.CENTER;
 
         if(categoryCount == 0)
         {
+            FreeplayState.category = "Campaign";
             MusicBeatState.switchState(new FreeplayState()); 
         }
         else if(categoryCount == 1)
-            {
-                //openSubState(new FreeplaySongsSubstate());
-            }
-            else if(categoryCount == 2)
-                {
-                    //openSubState(new CoverSongSubstate());
-                }
+        {
+            FreeplayState.category = "Freeplay";
+            MusicBeatState.switchState(new FreeplayState()); 
+        }
+        else if(categoryCount == 2)
+        {
+            FreeplayState.category = "Covers";
+            MusicBeatState.switchState(new FreeplayState()); 
+        }
                 
     }
 }
