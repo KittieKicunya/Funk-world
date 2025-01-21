@@ -136,7 +136,6 @@ class RvMMenuState extends MusicBeatState {
     {
         super.update(elapsed);
 
-
         var keyMap = [
             { key: FlxG.keys.justPressed.S, letter: "s" },
             { key: FlxG.keys.justPressed.O, letter: "o" },
@@ -149,26 +148,19 @@ class RvMMenuState extends MusicBeatState {
             { key: FlxG.keys.justPressed.E, letter: "e" },
             { key: FlxG.keys.justPressed.L, letter: "l" }
         ];
+
         for (key in keyMap) {
             if (key.key) {
                 letters += key.letter;
                 trace(letters);
             }
         }
-                                        
 
-
-
-         if (letters == 'sofanthiel')
-         {
+        if (letters == 'sofanthiel') {
             PlayState.isStoryMode = false;
-            PlayState.SONG = Song.loadFromJson('sofanthiel', 'sofanthiel');
+            PlayState.SONG = Song.loadFromJson('Sophantiel', 'Sophantiel');
             LoadingState.loadAndSwitchState(new PlayState());
         }
-       
-
-
-
 
         if (FlxG.mouse.overlaps(playbutton))
         {
