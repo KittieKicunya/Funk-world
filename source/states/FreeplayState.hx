@@ -48,6 +48,7 @@ class FreeplayState extends MusicBeatState
 	var line:FlxSprite;
 
 	var deSongName:FlxText;
+	var deSongDesc:FlxText;
 
 
 	var songPart:Int = 1;
@@ -59,6 +60,8 @@ class FreeplayState extends MusicBeatState
 
 		var songsfake = SongLoader.loadSongsByCategory(category);
 		trace("Songs in category " + category + ": " + songsfake);
+
+		var desc = SongLoader.loadDescByCategory(category);
 
 		//Paths.clearStoredMemory();
 		//Paths.clearUnusedMemory();
@@ -75,7 +78,7 @@ class FreeplayState extends MusicBeatState
 		var i:Int = 0; 
 		for (items in songsfake)
 		{
-			addSong(items, i, items, FlxColor.fromRGB(255, 255, 255));
+			addSong(items,desc[i], i, items, FlxColor.fromRGB(255, 255, 255));
 			i++;
 		}
 		
@@ -185,7 +188,12 @@ class FreeplayState extends MusicBeatState
 		deSongName.text = songs[curSelected].songName;
 		add(deSongName);
 
-		
+		deSongDesc = new FlxText(750, 503);
+		deSongDesc.setFormat(Paths.font("Rodondo.otf"), 32, FlxColor.WHITE);
+		deSongDesc.alignment = FlxTextAlign.CENTER;
+		deSongDesc.text = songs[curSelected].songDesc;
+		add(deSongDesc);
+
 		changeSelection();
 		updateTexts();
 		super.create();
@@ -197,9 +205,9 @@ class FreeplayState extends MusicBeatState
 		super.closeSubState();
 	}
 
-	public function addSong(songName:String, weekNum:Int, songCharacter:String, color:Int)
+	public function addSong(songName:String,songDesc:String, weekNum:Int, songCharacter:String, color:Int)
 	{
-		songs.push(new SongMetadata(songName, weekNum, songCharacter, color));
+		songs.push(new SongMetadata(songName,songDesc, weekNum, songCharacter, color));
 	}
 
 	function weekIsLocked(name:String):Bool {
@@ -214,6 +222,7 @@ class FreeplayState extends MusicBeatState
 	{
 		imgSong.loadGraphic(Paths.image("FreeplayMenu/imgFreeplays/" + category + "/" + curSelected));
 		deSongName.text = songs[curSelected].songName;
+		deSongDesc.text = songs[curSelected].songDesc;
 
 		if (FlxG.sound.music.volume < 0.7)
 		{
@@ -542,10 +551,10 @@ class SongMetadata
 	public var folder:String = "";
 	public var lastDifficulty:String = null;
 
-	public function new(song:String, week:Int, songCharacter:String, color:Int)
+	public function new(song:String,desc:String, week:Int, songCharacter:String, color:Int)
 	{
 		this.songName = song;
-		this.songDesc = song;
+		this.songDesc = desc;
 		this.week = week;
 		this.songCharacter = songCharacter;
 		this.color = color;

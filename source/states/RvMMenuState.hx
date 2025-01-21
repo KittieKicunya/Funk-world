@@ -137,58 +137,24 @@ class RvMMenuState extends MusicBeatState {
         super.update(elapsed);
 
 
-        if (FlxG.keys.justPressed.S)
-        {
-            letters += "s";
-            trace(letters);
-        }
-
-        if (FlxG.keys.justPressed.O)
-            {
-                letters += "o";
+        var keyMap = [
+            { key: FlxG.keys.justPressed.S, letter: "s" },
+            { key: FlxG.keys.justPressed.O, letter: "o" },
+            { key: FlxG.keys.justPressed.F, letter: "f" },
+            { key: FlxG.keys.justPressed.A, letter: "a" },
+            { key: FlxG.keys.justPressed.N, letter: "n" },
+            { key: FlxG.keys.justPressed.T, letter: "t" },
+            { key: FlxG.keys.justPressed.H, letter: "h" },
+            { key: FlxG.keys.justPressed.I, letter: "i" },
+            { key: FlxG.keys.justPressed.E, letter: "e" },
+            { key: FlxG.keys.justPressed.L, letter: "l" }
+        ];
+        for (key in keyMap) {
+            if (key.key) {
+                letters += key.letter;
                 trace(letters);
             }
-
-            if (FlxG.keys.justPressed.F)
-                {
-                    letters += "f";
-                    trace(letters);
-                }
-                if (FlxG.keys.justPressed.A)
-                    {
-                        letters += "a";
-                        trace(letters);
-                    }
-                    if (FlxG.keys.justPressed.N)
-                        {
-                            letters += "n";
-                            trace(letters);
-                        }
-                        if (FlxG.keys.justPressed.T)
-                            {
-                                letters += "t";
-                                trace(letters);
-                            }
-                            if (FlxG.keys.justPressed.H)
-                                {
-                                    letters += "h";
-                                    trace(letters);
-                                }
-                                if (FlxG.keys.justPressed.I)
-                                    {
-                                        letters += "i";
-                                        trace(letters);
-                                    }
-                                    if (FlxG.keys.justPressed.E)
-                                        {
-                                            letters += "e";
-                                            trace(letters);
-                                        }
-                                        if (FlxG.keys.justPressed.L)
-                                            {
-                                                letters += "l";
-                                                trace(letters);
-                                            }
+        }
                                         
 
 
