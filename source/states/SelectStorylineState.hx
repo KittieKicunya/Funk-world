@@ -16,7 +16,7 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 import objects.MenuItem;
 import objects.MenuCharacter;
 
-import substates.GameplayChangersSubstate;
+import options.GameplayChangersSubstate;
 import substates.ResetScoreSubState;
 
 import openfl.display.BitmapData;

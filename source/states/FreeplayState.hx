@@ -7,13 +7,19 @@ import backend.SongLoader;
 import objects.HealthIcon;
 import objects.MusicPlayer;
 
-import substates.GameplayChangersSubstate;
 import substates.ResetScoreSubState;
-
+import options.GameplayChangersSubstate;
 import flixel.math.FlxMath;
 
 class FreeplayState extends MusicBeatState
 {
+
+	public static var opponentVocals:FlxSound = null;
+
+
+
+
+
 	var songs:Array<SongMetadata> = [];
 
 	var selector:FlxText;
@@ -316,11 +322,7 @@ class FreeplayState extends MusicBeatState
 			MusicBeatState.switchState(new RvMMenuState());	
 		}
 
-		if(FlxG.keys.justPressed.CONTROL)
-		{
-			persistentUpdate = false;
-			openSubState(new GameplayChangersSubstate());
-		}
+
 		else if(FlxG.keys.justPressed.SPACE)
 		{
 			if(instPlaying != curSelected)

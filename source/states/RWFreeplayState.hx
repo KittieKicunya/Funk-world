@@ -7,9 +7,7 @@ import backend.Song;
 import objects.HealthIcon;
 import objects.MusicPlayer;
 
-import states.freeplaySongs.StorySongState;
-
-import substates.GameplayChangersSubstate;
+import options.GameplayChangersSubstate;
 import substates.ResetScoreSubState;
 
 import flixel.math.FlxMath;

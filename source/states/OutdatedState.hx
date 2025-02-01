@@ -20,7 +20,7 @@ class OutdatedState extends MusicBeatState
 			\n
 			Thank you for using the Engine!",
 			32);
-		warnText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
+		warnText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER);
 		warnText.screenCenter(Y);
 		add(warnText);
 	}
@@ -41,7 +41,7 @@ class OutdatedState extends MusicBeatState
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 				FlxTween.tween(warnText, {alpha: 0}, 1, {
 					onComplete: function (twn:FlxTween) {
-						MusicBeatState.switchState(new RvMMenuState());
+						MusicBeatState.switchState(new MainMenuState());
 					}
 				});
 			}
