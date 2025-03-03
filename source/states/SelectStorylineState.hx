@@ -61,7 +61,7 @@ class SelectStorylineState extends MusicBeatState
     public var canScroll:Bool = true;
 
     public var weekCount:Int = 1;
-    var curDifficulty:Int = 0;
+    var curDifficulty:Int = -1;
 
     public var selectedWeek:Bool = false;
 
@@ -355,12 +355,9 @@ class SelectStorylineState extends MusicBeatState
                     PlayState.isStoryMode = true;
                     selectedWeek = true;
         
-                    var diffic = '';
-                    if(diffic == null) diffic = '';
-        
                     PlayState.storyDifficulty = curDifficulty;
         
-                    PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0].toLowerCase() + diffic, PlayState.storyPlaylist[0].toLowerCase());
+                    PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0].toLowerCase(), PlayState.storyPlaylist[0].toLowerCase());
                     PlayState.campaignScore = 0;
                     PlayState.campaignMisses = 0;
                 }

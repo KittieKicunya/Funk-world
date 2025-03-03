@@ -158,7 +158,7 @@ class RvMMenuState extends MusicBeatState {
 
         if (letters == 'sofanthiel') {
             PlayState.isStoryMode = false;
-            PlayState.SONG = Song.loadFromJson('Sophantiel', 'Sophantiel');
+            PlayState.SONG = Song.loadFromJson('sofanthiel', 'sofanthiel');
             LoadingState.loadAndSwitchState(new PlayState());
         }
 
