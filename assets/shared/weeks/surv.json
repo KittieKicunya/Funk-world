@@ -17,31 +17,13 @@
 	],
 	"songs": [
 		[
-			"survivorship",
-			"dad",
-			[
-				146,
-				113,
-				253
-			]
+			"survivorship"
 		],
 		[
-			"scavenger",
-			"dad",
-			[
-				146,
-				113,
-				253
-			]
+			"scavenger"
 		],
 		[
-			"dream",
-			"dad",
-			[
-				146,
-				113,
-				253
-			]
+			"dream"
 		]
 	],
 	"hideStoryMode": false,
