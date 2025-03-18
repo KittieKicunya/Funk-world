@@ -1,6 +1,7 @@
 package states;
 
 import states.PlayState;
+import states.locations.OutskirtsState;
 
 import backend.WeekData;
 import backend.Highscore;
@@ -351,15 +352,15 @@ class SelectStorylineState extends MusicBeatState
                 // Nevermind that's stupid lmao
                 try
                 {
-                    PlayState.storyPlaylist = songArray;
-                    PlayState.isStoryMode = true;
-                    selectedWeek = true;
+                    //PlayState.storyPlaylist = songArray;
+                    //PlayState.isStoryMode = true;
+                    //selectedWeek = true;
         
-                    PlayState.storyDifficulty = curDifficulty;
+                    //PlayState.storyDifficulty = curDifficulty;
         
-                    PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0].toLowerCase(), PlayState.storyPlaylist[0].toLowerCase());
-                    PlayState.campaignScore = 0;
-                    PlayState.campaignMisses = 0;
+                    //PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0].toLowerCase(), PlayState.storyPlaylist[0].toLowerCase());
+                    //PlayState.campaignScore = 0;
+                    //PlayState.campaignMisses = 0;
                 }
                 catch(e:Dynamic)
                 {
@@ -375,7 +376,7 @@ class SelectStorylineState extends MusicBeatState
     
                 new FlxTimer().start(1, function(tmr:FlxTimer)
                 {
-                    LoadingState.loadAndSwitchState(new PlayState(), true);
+                    MusicBeatState.switchState(new OutskirtsState());
                     FreeplayState.destroyFreeplayVocals();
                 });
                 

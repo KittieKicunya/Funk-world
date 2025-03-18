@@ -18,6 +18,10 @@ import lime.app.Application;
 import states.editors.MasterEditorMenu;
 import options.OptionsState;
 
+import flixel.util.FlxTimer;
+
+
+
 
 
 import flixel.input.keyboard.FlxKey;
@@ -46,15 +50,22 @@ class OutskirtsState extends MusicBeatState {
     var floor11:FlxSprite;
     var floor12:FlxSprite;
 
+    public var tp:FlxSprite;
+
     public var blek:FlxSprite;
+    public var guide:FlxSprite;
 
     var alphaDir:Int = -1;
+    var alphaDir2:Int = -1;
     
 
     override function create() {
 
         super.create();
-        FlxG.camera.zoom = 1.6;
+
+        FlxG.sound.playMusic(Paths.music('mainmenu'), 1);
+        
+        FlxG.camera.zoom = 1.0;
 
         locFloor = new FlxTypedGroup<FlxSprite>();
         add(locFloor);
@@ -67,6 +78,16 @@ class OutskirtsState extends MusicBeatState {
 
         player = new SurvivorStart(50, 500);
         add(player);
+
+        guide = new FlxSprite(369, 17).loadGraphic((Paths.image("guide")));
+        guide.antialiasing = false;
+        guide.scrollFactor.set(1.0, 1.0);
+        add(guide);
+
+        tp = new FlxSprite(1174,514).makeGraphic(81, 135, FlxColor.WHITE);
+		tp.updateHitbox();
+        tp.scrollFactor.set(1.0, 1.0);
+        add(tp);
 
         
         floor = new FlxSprite(-321,649).makeGraphic(1900, 178, FlxColor.WHITE);
@@ -171,7 +192,8 @@ class OutskirtsState extends MusicBeatState {
         floor12.immovable = true;
 
         
-        
+        var timer:FlxTimer = new FlxTimer();
+		timer.start(3, showGuide, 0);
 
     }
 
@@ -194,9 +216,36 @@ class OutskirtsState extends MusicBeatState {
             FlxG.collide(player, floor10);
             FlxG.collide(player, floor11);
             FlxG.collide(player, floor12);
-            FlxG.camera.setScrollBoundsRect(0, 0, FlxG.width * 2, FlxG.height, true);
-		    FlxG.camera.follow(player, FlxCameraFollowStyle.LOCKON);
+
+            guide.alpha += 0.02 * alphaDir2;
+
+
+            if (guide.alpha < 0)
+            {
+                guide.alpha == 0;
+            }
+
+
+            if (FlxG.overlap(player, tp, onCollision)) {
+                PlayState.isStoryMode = false;
+                PlayState.SONG = Song.loadFromJson('survivorship', 'survivorship');
+                LoadingState.loadAndSwitchState(new PlayState());
+            }
             
+        }
+
+        private function showGuide(_):Void {
+            alphaDir2 = 1;
+            var timer2:FlxTimer = new FlxTimer();
+		    timer2.start(5, hideGuide, 0);
+        }
+
+        private function hideGuide(_):Void {
+            alphaDir2 = -1;
+        }
+
+        function onCollision(obj1:FlxSprite, obj2:FlxSprite):Void {
+                
         }
 
         

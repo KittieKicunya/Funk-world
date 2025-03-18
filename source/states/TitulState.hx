@@ -3,6 +3,9 @@ package states;
 import backend.WeekData;
 import backend.Highscore;
 
+import openfl.filters.ShaderFilter;
+import shaders.RainShader;
+
 
 import flixel.FlxG;
 import flixel.input.keyboard.FlxKey;
@@ -55,6 +58,8 @@ class TitulState extends MusicBeatState
     var alphaDir:Int = -1;
     var alpha:Float = 0;
 
+    var rainShader:RainShader;
+
 
 	override public function create():Void 
 	{
@@ -64,6 +69,7 @@ class TitulState extends MusicBeatState
         ClientPrefs.loadPrefs();
 
         Highscore.load();
+        
 
         if(!initialized)
             {
@@ -82,6 +88,12 @@ class TitulState extends MusicBeatState
             }
 
         var timer:FlxTimer = new FlxTimer();
+
+        rainShader = new RainShader();
+        rainShader.time = 0;
+        rainShader.uIntensity.value = [1.0];
+
+        //FlxG.camera.setFilters([new ShaderFilter(rainShader)]);
 		
 
         creator = new FlxSprite().loadGraphic(Paths.image('titleScreen/logos/cult'));
@@ -136,6 +148,8 @@ class TitulState extends MusicBeatState
     override function update(elapsed:Float)
     {
         super.update(elapsed);
+
+        rainShader.time += elapsed;
 
         alpha += 0.02 * alphaDir;
 
@@ -242,5 +256,7 @@ class TitulState extends MusicBeatState
             var chance:Int = FlxG.random.int(0, logoPaths.length - 1);
             return Paths.image(logoPaths[chance]);
         }
+
+        
 
 }
