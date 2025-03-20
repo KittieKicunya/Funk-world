@@ -22,11 +22,8 @@ import flixel.util.FlxTimer;
 
 
 
-
-
 import flixel.input.keyboard.FlxKey;
 
-import openfl.filters.ShaderFilter;
 
 class OutskirtsState extends MusicBeatState {
 
@@ -34,7 +31,6 @@ class OutskirtsState extends MusicBeatState {
 
     var locFloor:FlxTypedGroup<FlxSprite>;
     
-
     var location:FlxSprite;
 
     var floor:FlxSprite;
