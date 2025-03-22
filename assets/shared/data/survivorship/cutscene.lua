@@ -1,3 +1,15 @@
-function onCreate()
-        startVideo('survivorship_cutscene') -- Воспроизводим видео (файл `mods/videos/cutscene.mp4`)
+local allowCountdown = false
+
+function onStartCountdown()
+
+    if not allowCountdown then
+       
+        startVideo('survivorship_cutscene')
+        allowCountdown = true;
+        return Function_Stop;
+        
+    end
+
+    return Function_Continue;
+
 end
