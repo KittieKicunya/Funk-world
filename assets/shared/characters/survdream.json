@@ -1,0 +1,55 @@
+{
+	"animations": [
+		{
+			"loop": false,
+			"offsets": [-46, -177],
+			"anim": "singDOWN",
+			"fps": 24,
+			"name": "slugcatdown",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [-11, -95],
+			"anim": "idle",
+			"fps": 24,
+			"name": "slugcatidle",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [190, -130],
+			"anim": "singUP",
+			"fps": 24,
+			"name": "slugcatup",
+			"indices": []
+		},
+		{
+			"offsets": [83, -84],
+			"indices": [],
+			"fps": 24,
+			"anim": "singLEFT",
+			"loop": false,
+			"name": "slugcatleft"
+		},
+		{
+			"offsets": [-36, -97],
+			"indices": [],
+			"fps": 24,
+			"anim": "singRIGHT",
+			"loop": false,
+			"name": "slugcatright"
+		}
+	],
+	"vocals_file": "",
+	"no_antialiasing": false,
+	"image": "characters/dreamslug",
+	"position": [0, 0],
+	"healthicon": "survivor",
+	"flip_x": true,
+	"healthbar_colors": [216, 85, 142],
+	"camera_position": [90, -160],
+	"sing_duration": 4,
+	"scale": 2.6,
+	"_editor_isPlayer": true
+}
