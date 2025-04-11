@@ -2005,6 +2005,27 @@ class PlayState extends MusicBeatState
 
 
 				}
+
+				if (ratingPercent == 0.95)
+				{
+					ResetGameSubState.karmaLevel = 'sick';
+				}
+				else if (ratingPercent == 0.80)
+					{
+						ResetGameSubState.karmaLevel = 'great';
+					}
+					else if (ratingPercent == 0.75)
+						{
+							ResetGameSubState.karmaLevel = 'good';
+						}
+						else if (ratingPercent == 0.35)
+							{
+								ResetGameSubState.karmaLevel = 'bad';
+							}
+							else if (ratingPercent < 0.35)
+								{
+									ResetGameSubState.karmaLevel = 'shit';
+								}
 				
 
 			#if VIDEOS_ALLOWED
@@ -2018,6 +2039,8 @@ class PlayState extends MusicBeatState
 				songScoreGM = songScore;
 				songMissesGM = songMisses;
 			
+
+			PauseSubState.songName = songName;
 			boyfriend.visible = false;
 			dad.visible = false;
 			camHUD.visible = false;

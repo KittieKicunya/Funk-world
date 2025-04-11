@@ -233,7 +233,7 @@ class OutskirtsState extends MusicBeatState {
         private function showGuide(_):Void {
             alphaDir2 = 1;
             var timer2:FlxTimer = new FlxTimer();
-		    timer2.start(5, hideGuide, 0);
+		    timer2.start(5, hideGuide, 1);
         }
 
         private function hideGuide(_):Void {
