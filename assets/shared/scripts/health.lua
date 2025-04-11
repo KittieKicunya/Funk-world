@@ -1,5 +1,5 @@
 function onCreate()
-	setProperty('skipCountdown', true)
+	--setProperty('skipCountdown', true)
 end
 
 function onCreatePost()

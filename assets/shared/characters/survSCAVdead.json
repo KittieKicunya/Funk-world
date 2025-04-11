@@ -1,0 +1,31 @@
+{
+	"animations": [
+		{
+			"loop": false,
+			"offsets": [0, 0],
+			"anim": "idle",
+			"fps": 24,
+			"name": "Mom Idle",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [0, 0],
+			"anim": "dead",
+			"fps": 24,
+			"name": "surv_death",
+			"indices": []
+		}
+	],
+	"vocals_file": "",
+	"no_antialiasing": false,
+	"image": "characters/\\death_screens/scavenger/scavenger-survivor_death",
+	"position": [-718, 370],
+	"healthicon": "none",
+	"flip_x": true,
+	"healthbar_colors": [216, 85, 142],
+	"camera_position": [0, 0],
+	"sing_duration": 4,
+	"scale": 1,
+	"_editor_isPlayer": true
+}

@@ -28,6 +28,7 @@ import states.editors.CharacterEditorState;
 
 import substates.PauseSubState;
 import substates.GameOverSubstate;
+import substates.ResetGameSubState;
 
 #if !flash
 import openfl.filters.ShaderFilter;
@@ -212,6 +213,8 @@ class PlayState extends MusicBeatState
 	public var songScore:Int = 0;
 	public var songHits:Int = 0;
 	public var songMisses:Int = 0;
+	public static var songScoreGM:Int = 0;
+	public static var songMissesGM:Int = 0;
 	public var scoreTxt:FlxText;
 	var timeTxt:FlxText;
 	var scoreTxtTween:FlxTween;
@@ -1977,17 +1980,34 @@ class PlayState extends MusicBeatState
 	function doDeathCheck(?skipHealthCheck:Bool = false) {
 		if (((skipHealthCheck && instakillOnMiss) || health <= 0) && !practiceMode && !isDead && gameOverTimer == null)
 		{
-			var ret:Dynamic = callOnScripts('onGameOver', null, true);
-			if(ret != LuaUtils.Function_Stop)
-			{
-				FlxG.animationTimeScale = 1;
+
+			FlxG.animationTimeScale = 1;
 				boyfriend.stunned = true;
 				deathCounter++;
-
 				paused = true;
 				canResync = false;
 				canPause = false;
-				#if VIDEOS_ALLOWED
+				if (songName == 'scavenger')
+				{
+
+					var killSurvSCAV:Character = new Character(dad.x - 300, dad.y, 'survSCAVkill');
+					killSurvSCAV.skipDance = true;
+					add(killSurvSCAV);
+
+					var deadSurvSCAV:Character = new Character(boyfriend.x - 300, boyfriend.y + 100, 'survSCAVdead');
+					deadSurvSCAV.skipDance = true;
+					add(deadSurvSCAV);
+
+					
+
+					deadSurvSCAV.playAnim('dead');
+					killSurvSCAV.playAnim('kill');
+
+
+				}
+				
+
+			#if VIDEOS_ALLOWED
 				if(videoCutscene != null)
 				{
 					videoCutscene.destroy();
@@ -1995,40 +2015,17 @@ class PlayState extends MusicBeatState
 				}
 				#end
 
-				persistentUpdate = false;
-				persistentDraw = false;
-				FlxTimer.globalManager.clear();
-				FlxTween.globalManager.clear();
-				FlxG.camera.setFilters([]);
-
-				if(GameOverSubstate.deathDelay > 0)
-				{
-					gameOverTimer = new FlxTimer().start(GameOverSubstate.deathDelay, function(_)
-					{
-						vocals.stop();
-						opponentVocals.stop();
-						FlxG.sound.music.stop();
-						openSubState(new GameOverSubstate(boyfriend));
-						gameOverTimer = null;
-					});
-				}
-				else
-				{
-					vocals.stop();
-					opponentVocals.stop();
-					FlxG.sound.music.stop();
-					openSubState(new GameOverSubstate(boyfriend));
-				}
-
-				// MusicBeatState.switchState(new GameOverState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
-
-				#if DISCORD_ALLOWED
-				// Game Over doesn't get his its variable because it's only used here
-				if(autoUpdateRPC) DiscordClient.changePresence("Game Over - " + detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
-				#end
-				isDead = true;
-				return true;
-			}
+				songScoreGM = songScore;
+				songMissesGM = songMisses;
+			
+			boyfriend.visible = false;
+			dad.visible = false;
+			camHUD.visible = false;
+			vocals.stop();
+			opponentVocals.stop();
+			FlxG.sound.music.stop();
+			isDead = true;
+			openSubState(new ResetGameSubState());
 		}
 		return false;
 	}

@@ -200,15 +200,16 @@ class SelectStorylineState extends MusicBeatState
         playButton.screenCenter(X);
         add(playButton);
 
-        CharacterName = new FlxText(439,458);
+        CharacterName = new FlxText(479,458, FlxG.width);
         CharacterName.text = "Boyfriend";
+        CharacterName.screenCenter(X);
         CharacterName.color = FlxColor.WHITE;
         CharacterName.size = 64;
         CharacterName.alignment = FlxTextAlign.CENTER;
         CharacterName.scrollFactor.set(0.0, 0.0);
         add(CharacterName);
 
-        desc = new FlxText(223,548);
+        desc = new FlxText(223,548, FlxG.width);
         desc.text = "Slugcat who is not part of this world but is also looking for a way to find peace,
  his strength is singing, his enemies can't kill him unless they win him in a rap battle ";
         desc.color = FlxColor.WHITE;

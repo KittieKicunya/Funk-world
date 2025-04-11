@@ -1,0 +1,17 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "Lime Test Windows",
+        "type": "shell",
+        "command": "lime test windows",
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        },
+        "problemMatcher": [],
+        "detail": "Run Lime Test for Windows target."
+      }
+    ]
+  }
+  

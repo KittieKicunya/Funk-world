@@ -189,13 +189,13 @@ class FreeplayState extends MusicBeatState
 		line.scrollFactor.set();
 		add(line);
 		
-		deSongName = new FlxText(684, 403);
+		deSongName = new FlxText(230, 403, FlxG.width);
 		deSongName.setFormat(Paths.font("Rodondo.otf"), 64, FlxColor.WHITE);
 		deSongName.alignment = FlxTextAlign.CENTER;
 		deSongName.text = songs[curSelected].songName;
 		add(deSongName);
 
-		deSongDesc = new FlxText(750, 503);
+		deSongDesc = new FlxText(230, 503, FlxG.width);
 		deSongDesc.setFormat(Paths.font("Rodondo.otf"), 32, FlxColor.WHITE);
 		deSongDesc.alignment = FlxTextAlign.CENTER;
 		deSongDesc.text = songs[curSelected].songDesc;

@@ -83,7 +83,7 @@ class RWFreeplayState extends MusicBeatState
         buttonLEFT.scrollFactor.set(0.0, 0.0);
         add(buttonLEFT);
 
-        catName = new FlxText(544,476);
+        catName = new FlxText(544,476, FlxG.width);
         catName.font = "fonts/Rodondo.otf";
         catName.text = "CAMPAIGN SONGS";
         catName.color = FlxColor.WHITE;
@@ -93,7 +93,7 @@ class RWFreeplayState extends MusicBeatState
         catName.scrollFactor.set(0.0, 0.0);
         add(catName);
 
-        desc = new FlxText(223,588);
+        desc = new FlxText(223,588, FlxG.width);
         desc.font = "fonts/rain-world-menu.ttf";
         desc.text = "Here are the songs that were used in the campaign ";
         desc.color = FlxColor.WHITE;
@@ -103,7 +103,7 @@ class RWFreeplayState extends MusicBeatState
         desc.scrollFactor.set(0.0, 0.0);
         add(desc);
 
-        var sideText:FlxText = new FlxText(223,696);
+        var sideText:FlxText = new FlxText(223,696, FlxG.width);
         sideText.font = "fonts/rain-world-menu.ttf";
         sideText.text = "Press ENTER to choose category";
         sideText.color = FlxColor.WHITE;

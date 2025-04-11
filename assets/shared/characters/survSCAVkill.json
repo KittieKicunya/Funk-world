@@ -1,0 +1,31 @@
+{
+	"animations": [
+		{
+			"offsets": [0, 0],
+			"loop": false,
+			"fps": 24,
+			"anim": "idle",
+			"indices": [],
+			"name": "Mom Idle"
+		},
+		{
+			"offsets": [0, 0],
+			"indices": [],
+			"fps": 24,
+			"anim": "kill",
+			"loop": false,
+			"name": "scav_killin"
+		}
+	],
+	"vocals_file": "",
+	"no_antialiasing": false,
+	"image": "characters/\\death_screens/scavenger/scavenger-scav_killin",
+	"position": [610, 130],
+	"healthicon": "none",
+	"flip_x": true,
+	"healthbar_colors": [216, 85, 142],
+	"camera_position": [0, 0],
+	"sing_duration": 4,
+	"scale": 1,
+	"_editor_isPlayer": true
+}
