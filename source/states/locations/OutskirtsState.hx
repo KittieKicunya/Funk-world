@@ -189,7 +189,7 @@ class OutskirtsState extends MusicBeatState {
 
         
         var timer:FlxTimer = new FlxTimer();
-		timer.start(3, showGuide, 0);
+		timer.start(3, showGuide, 1);
 
     }
 

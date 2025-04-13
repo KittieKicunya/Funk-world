@@ -2313,6 +2313,8 @@ class PlayState extends MusicBeatState
 			case 'Play Sound':
 				if(flValue2 == null) flValue2 = 1;
 				FlxG.sound.play(Paths.sound(value1), flValue2);
+
+			case 'Scavenger Attack':
 		}
 
 		stagesFunc(function(stage:BaseStage) stage.eventCalled(eventName, value1, value2, flValue1, flValue2, strumTime));

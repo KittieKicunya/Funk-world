@@ -11,18 +11,6 @@
         },
         "problemMatcher": [],
         "detail": "Run Lime Test for Windows target."
-      },
-
-      {
-        "label": "Lime Test Windows Debug mode",
-        "type": "shell",
-        "command": "lime test windows -debug",
-        "group": {
-          "kind": "build",
-          "isDefault": true
-        },
-        "problemMatcher": [],
-        "detail": "Run Lime Test Debug for Windows target."
       }
     ]
   }

@@ -56,6 +56,8 @@ class SelectStorylineState extends MusicBeatState
     private var nextButton:FlxSprite;
     private var backButton:FlxSprite;
 
+    var buttonBG:FlxSprite;
+
 
     public var camScroll:FlxSprite;
 
@@ -233,12 +235,20 @@ class SelectStorylineState extends MusicBeatState
         camScroll.makeGraphic(29, 29, FlxColor.WHITE);
         add(camScroll);
 
+        buttonBG = new FlxSprite(17, 27).loadGraphic(Paths.image('PauseMenu/BACK'));
+        add(buttonBG);
+
         super.create();
 	}
 
 	override public function update(elapsed:Float):Void {
 
         FlxG.camera.follow(camScroll, FlxCameraFollowStyle.LOCKON);
+
+        if (FlxG.mouse.justReleased && buttonBG.overlapsPoint(FlxG.mouse.getScreenPosition()) && canScroll)
+            {
+                MusicBeatState.switchState(new RvMMenuState());
+            }
 
         if (FlxG.mouse.justReleased && backButton.overlapsPoint(FlxG.mouse.getScreenPosition()) && canScroll)
         {
