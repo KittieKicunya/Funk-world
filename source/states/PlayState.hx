@@ -1990,11 +1990,11 @@ class PlayState extends MusicBeatState
 				if (songName == 'scavenger')
 				{
 
-					var killSurvSCAV:Character = new Character(dad.x - 300, dad.y, 'survSCAVkill');
+					var killSurvSCAV:Character = new Character(dad.x, dad.y, 'survSCAVkill');
 					killSurvSCAV.skipDance = true;
 					add(killSurvSCAV);
 
-					var deadSurvSCAV:Character = new Character(boyfriend.x - 300, boyfriend.y + 100, 'survSCAVdead');
+					var deadSurvSCAV:Character = new Character(boyfriend.x, boyfriend.y, 'survSCAVdead');
 					deadSurvSCAV.skipDance = true;
 					add(deadSurvSCAV);
 

@@ -1,15 +1,14 @@
 function onCreate()
-    
-    triggerEvent('Camera Follow Pos', '400', '-900')
-    setProperty('camFollow.x', 540)
-    setProperty('camFollow.y', -900)
-    
-
-
     makeLuaSprite("black", "", -900, -500)
     makeGraphic("black", 4000, 4000, "000000")
     setScrollFactor("black", 0.0, 0.0)
     addLuaSprite("black", true)
+end
+
+function onStartCountdown()
+    triggerEvent('Camera Follow Pos', '400', '-900')
+    setProperty('camFollow.x', 540)
+    setProperty('camFollow.y', -900)
 end
 
 function onStepHit()

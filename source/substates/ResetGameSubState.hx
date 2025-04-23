@@ -86,12 +86,28 @@ class ResetGameSubState extends MusicBeatSubstate
         deed.alpha = 0;
         add(deed);
 
+        var txtScore:FlxText = new FlxText(-100, 24);
+        txtScore.size = 96;
+        txtScore.text = "GAME OVER";
+        txtScore.font = "assets/fonts/Rodondo.otf";
+        txtScore.alpha = 0;
+        add(txtScore);
+
         FlxTween.tween(deed, {x: 0, y: 0}, 1.0,
 			{ease: FlxEase.cubeOut});
 
         FlxTween.tween(deed, {alpha: 1.0}, 1.0,
             {ease: FlxEase.cubeOut});
+
+            FlxTween.tween(txtScore, {x: 48, y: 24}, 1.0,
+                {ease: FlxEase.cubeOut});
+    
+            FlxTween.tween(txtScore, {alpha: 1.0}, 1.0,
+                {ease: FlxEase.cubeOut});
+                timer.start(1.6, plrScore, 1);
             timer.start(1.6, songName, 1);
+
+            
     }
 
     function songName(_):Void {
@@ -99,7 +115,8 @@ class ResetGameSubState extends MusicBeatSubstate
 
         var txtScore:FlxText = new FlxText(48, 160);
         txtScore.size = 40;
-        txtScore.text = "Song name:" + PauseSubState.songName;
+        txtScore.text = "Song name: " + PauseSubState.songName;
+        txtScore.font = "assets/fonts/rain-world-menu.ttf";
         txtScore.alpha = 0;
         add(txtScore);
 
@@ -116,7 +133,8 @@ class ResetGameSubState extends MusicBeatSubstate
 
         var txtScore:FlxText = new FlxText(48, 240);
         txtScore.size = 36;
-        txtScore.text = "Your score:" + PlayState.songScoreGM;
+        txtScore.text = "Your score: " + PlayState.songScoreGM;
+        txtScore.font = "assets/fonts/rain-world-menu.ttf";
         txtScore.alpha = 0;
         add(txtScore);
 
@@ -133,7 +151,8 @@ class ResetGameSubState extends MusicBeatSubstate
 
         var txtScore:FlxText = new FlxText(48, 315);
         txtScore.size = 32;
-        txtScore.text = "Your misses:" + PlayState.songMissesGM;
+        txtScore.text = "Your misses: " + PlayState.songMissesGM;
+        txtScore.font = "assets/fonts/rain-world-menu.ttf";
         txtScore.alpha = 0;
         add(txtScore);
 
@@ -153,6 +172,7 @@ class ResetGameSubState extends MusicBeatSubstate
         var txtScore:FlxText = new FlxText(48, 450);
         txtScore.size = 24;
         txtScore.text = "Karma got:";
+        txtScore.font = "assets/fonts/rain-world-menu.ttf";
         txtScore.alpha = 0;
         add(txtScore);
 
@@ -167,14 +187,14 @@ class ResetGameSubState extends MusicBeatSubstate
     function karma(_):Void {
         var timer:FlxTimer = new FlxTimer();
 
-        var txtScore:FlxSprite = new FlxSprite(214, 395).loadGraphic(Paths.image('interface/health_karma/' + karmaLevel));
+        var txtScore:FlxSprite = new FlxSprite(250, 440).loadGraphic(Paths.image('interface/health_karma/' + karmaLevel));
         txtScore.antialiasing = false;
         txtScore.scale.x = 3;
         txtScore.scale.y = 3;
         txtScore.alpha = 0;
         add(txtScore);
 
-        FlxTween.tween(txtScore, {x: 214, y: 382}, 1.0,
+        FlxTween.tween(txtScore, {x: 250, y: 429}, 1.0,
 			{ease: FlxEase.cubeOut});
 
         FlxTween.tween(txtScore, {alpha: 1.0}, 1.0,
