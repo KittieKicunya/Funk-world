@@ -1,5 +1,5 @@
 local posy = 500
-local txtPos = 620
+local txtPos = 500
 
 local statusRep = 0
 local tryAttack = false
@@ -9,6 +9,8 @@ function onCreate()
         posy = -100
         txtPos = 0
     end
+
+    
 
     makeLuaSprite("miss", "warnattack", 600, posy)
     setObjectCamera('miss', 'camHUD')
@@ -82,9 +84,12 @@ function onUpdate(elapsed)
     end
 
     if tryAttack and keyJustPressed('ACCEPT') then
+        playSound('defend', 1.0)
+        doTweenAngle('cameraTilt', 'camGame', 40, 0.2, 'sineInOut')
         tryAttack = false
         doTweenAlpha('gggkarma', 'miss', 0, 0.01, 'linear')
         cancelTimer('attack')
+        doTweenAngle('cameraTilt2', 'camGame', 0, 1.0, 'backInOut')
     end
 
 
@@ -105,14 +110,19 @@ function onTimerCompleted(tag, loops, loopsLeft)
     if tag == 'attack' then
         setProperty('health', 0)
     end
-    
 end
 
 function onEvent(name, value1, value2)
-    if name == "scavDodge" then
-        if value1 == statusRep then
+    if name == 'Scavenger Attack' then
+        
+        
+        local requiredStatus = tonumber(value1)
+        
+        
+        if statusRep >= requiredStatus then
             tryAttack = true
-            runTimer('attack', 2, 0)
+            playSound('warning', 1.0)
+            runTimer('attack', 2.5, 1)
         end
-	end
+    end
 end

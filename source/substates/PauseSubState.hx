@@ -8,6 +8,7 @@ import flixel.addons.transition.FlxTransitionableState;
 
 import flixel.util.FlxStringUtil;
 
+import states.PlayState;
 import states.SelectStorylineState;
 import states.FreeplayState;
 import options.OptionsState;
@@ -27,7 +28,6 @@ class PauseSubState extends MusicBeatSubstate
 	
 
 	override function create() {
-
 
 		var fade:FlxSprite = new FlxSprite().makeGraphic(1, 1, FlxColor.BLACK);
 		fade.scale.set(FlxG.width, FlxG.height);
@@ -118,15 +118,7 @@ class PauseSubState extends MusicBeatSubstate
 
 		exitGame.updateHitbox();
 
-		if (FlxG.keys.justPressed.ESCAPE)
-			{
-				close();
-			}
 
-			if (FlxG.keys.justPressed.ENTER)
-				{
-					close();
-				}
 
 				
 		if (FlxG.keys.justPressed.LEFT)
@@ -184,6 +176,14 @@ class PauseSubState extends MusicBeatSubstate
 								{
 									EndGame();
 								}
+								if (curChange == 3)
+									{
+										restartSong();
+									}
+								if (curChange == 4)
+								{
+									close();
+								}
 						}
 
 
@@ -222,10 +222,6 @@ class PauseSubState extends MusicBeatSubstate
 			PlayState.changedDifficulty = false;
 			PlayState.chartingMode = false;
 			FlxG.camera.followLerp = 0;
-		}
-
-		public static function Continue() {
-			
 		}
 
 		public static function Settings() {

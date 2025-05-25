@@ -14,6 +14,7 @@ import flixel.util.FlxStringUtil;
 import flixel.util.FlxSave;
 import flixel.input.keyboard.FlxKey;
 import flixel.animation.FlxAnimationController;
+import flixel.math.FlxMath;
 import lime.utils.Assets;
 import openfl.utils.Assets as OpenFlAssets;
 import openfl.events.KeyboardEvent;
@@ -269,6 +270,10 @@ class PlayState extends MusicBeatState
 
 	private static var _lastLoadedModDirectory:String = '';
 	public static var nextReloadAll:Bool = false;
+
+	var slowMotion:Bool = false;
+	var speedPaused:Int = 1;
+
 	override public function create()
 	{
 		//trace('Playback Rate: ' + playbackRate);
@@ -1000,7 +1005,7 @@ class PlayState extends MusicBeatState
 			}
 			moveCameraSection();
 
-			startTimer = new FlxTimer().start(Conductor.crochet / 1000 / playbackRate, function(tmr:FlxTimer)
+			startTimer = new FlxTimer().start(0, function(tmr:FlxTimer)
 			{
 				characterBopper(tmr.loopsLeft);
 
@@ -1014,26 +1019,11 @@ class PlayState extends MusicBeatState
 
 				var introAlts:Array<String> = introAssets.get(stageUI);
 				var antialias:Bool = (ClientPrefs.data.antialiasing && !isPixelStage);
-				var tick:Countdown = THREE;
+				var tick:Countdown = START;
 
 				switch (swagCounter)
 				{
 					case 0:
-						FlxG.sound.play(Paths.sound('intro3' + introSoundsSuffix), 0.6);
-						tick = THREE;
-					case 1:
-						countdownReady = createCountdownSprite(introAlts[0], antialias);
-						FlxG.sound.play(Paths.sound('intro2' + introSoundsSuffix), 0.6);
-						tick = TWO;
-					case 2:
-						countdownSet = createCountdownSprite(introAlts[1], antialias);
-						FlxG.sound.play(Paths.sound('intro1' + introSoundsSuffix), 0.6);
-						tick = ONE;
-					case 3:
-						countdownGo = createCountdownSprite(introAlts[2], antialias);
-						FlxG.sound.play(Paths.sound('introGo' + introSoundsSuffix), 0.6);
-						tick = GO;
-					case 4:
 						tick = START;
 				}
 
@@ -1171,13 +1161,13 @@ class PlayState extends MusicBeatState
 		ratingFC = "";
 		if(songMisses == 0)
 		{
-			if (bads > 0 || shits > 0) ratingFC = 'FC';
-			else if (goods > 0) ratingFC = 'GFC';
-			else if (sicks > 0) ratingFC = 'SFC';
+			if (bads > 0 || shits > 0) ratingFC = 'Hunter mode';
+			else if (goods > 0) ratingFC = 'Expedition gamer';
+			else if (sicks > 0) ratingFC = 'Wait... what?!';
 		}
 		else {
-			if (songMisses < 10) ratingFC = 'SDCB';
-			else ratingFC = 'Clear';
+			if (songMisses < 10) ratingFC = 'Survivor';
+			else ratingFC = 'Monarch mode';
 		}
 	}
 
@@ -1675,6 +1665,8 @@ class PlayState extends MusicBeatState
 
 	override public function update(elapsed:Float)
 	{
+		
+
 		if(!inCutscene && !paused && !freezeCamera) {
 			FlxG.camera.followLerp = 0.04 * cameraSpeed * playbackRate;
 			var idleAnim:Bool = (boyfriend.getAnimationName().startsWith('idle') || boyfriend.getAnimationName().startsWith('danceLeft') || boyfriend.getAnimationName().startsWith('danceRight'));
@@ -1908,30 +1900,7 @@ class PlayState extends MusicBeatState
 
 	function openPauseMenu()
 	{
-		FlxG.camera.followLerp = 0;
-		persistentUpdate = false;
-		persistentDraw = true;
-		paused = true;
-
-		if(FlxG.sound.music != null) {
-			FlxG.sound.music.pause();
-			vocals.pause();
-			opponentVocals.pause();
-		}
-		if(!cpuControlled)
-		{
-			for (note in playerStrums)
-				if(note.animation.curAnim != null && note.animation.curAnim.name != 'static')
-				{
-					note.playAnim('static');
-					note.resetAnim = 0;
-				}
-		}
-		openSubState(new PauseSubState());
-
-		#if DISCORD_ALLOWED
-		if(autoUpdateRPC) DiscordClient.changePresence(detailsPausedText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
-		#end
+		startSlowMotion();
 	}
 
 	function openChartEditor()
@@ -3657,4 +3626,67 @@ class PlayState extends MusicBeatState
 		return false;
 	}
 	#end
+
+	function startSlowMotion():Void {
+		
+		slowMotion = true;
+	
+		var times = 10;
+		var timer = new FlxTimer();
+
+		timer.start(0.1, function(t:FlxTimer) {
+
+			FlxG.timeScale -= 0.05;
+			FlxG.sound.music.pitch -= 0.05;
+			vocals.pitch -= 0.05;
+			opponentVocals.pitch -= 0.05;
+
+		}, times);
+		
+		
+		new FlxTimer().start(1, function(tmr:FlxTimer) {
+
+			
+			FlxG.timeScale = 1;
+			FlxG.sound.music.pitch = 1;
+			vocals.pitch = 1;
+			opponentVocals.pitch = 1;
+	
+			slowMotion = false;
+	
+			
+			posleTaimera();
+
+		});
+	}
+
+	function posleTaimera():Void {
+		
+			FlxG.camera.followLerp = 0;
+			persistentUpdate = false;
+			persistentDraw = true;
+			paused = true;
+	
+			if(FlxG.sound.music != null) {
+				FlxG.sound.music.pause();
+				vocals.pause();
+				opponentVocals.pause();
+			}
+			if(!cpuControlled)
+			{
+				for (note in playerStrums)
+					if(note.animation.curAnim != null && note.animation.curAnim.name != 'static')
+					{
+						note.playAnim('static');
+						note.resetAnim = 0;
+					}
+			}
+			openSubState(new PauseSubState());
+	
+			#if DISCORD_ALLOWED
+			if(autoUpdateRPC) DiscordClient.changePresence(detailsPausedText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
+
+			
+			#end
+		}
 }

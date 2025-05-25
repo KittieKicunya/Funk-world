@@ -80,6 +80,7 @@ class ResetGameSubState extends MusicBeatSubstate
 
     function showPlrFata(_):Void
     {
+        
         var timer:FlxTimer = new FlxTimer();
 
         var deed:FlxSprite = new FlxSprite(0, 70).loadGraphic(Paths.image('dreamScreens/gameOverScreen/gameOver'));

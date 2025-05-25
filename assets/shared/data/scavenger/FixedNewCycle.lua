@@ -13,21 +13,21 @@ function onSongStart()
     makeLuaSprite("black1", '', 0, -100)
     makeGraphic("black1", 1920, 70, '010101')
     setObjectCamera("black1", 'HUD')
-    setObjectOrder('black1', getObjectOrder('healthBar')+1)
+    setObjectOrder('black1', getObjectOrder('healthBar')+4)
     addLuaSprite("black1", true)
     doTweenY("completed", "black1", 0, 1.0, "CubeOut")
 
     makeLuaSprite("black2", '', 0, 750)
     makeGraphic("black2", 1920, 70, '010101')
     setObjectCamera("black2", 'HUD')
-    setObjectOrder('black2', getObjectOrder('healthBar')+1)
+    setObjectOrder('black2', getObjectOrder('healthBar')+4)
     addLuaSprite("black2", true)
     doTweenY("complete", "black2", 650, 1.0, "CubeOut")
 
     makeLuaText("cycle", "cycle ".. deathsdata .. ' - '.. songName, 512, 0.0, 660.0)
     setTextSize("cycle", 40)
     setObjectCamera("cycle", 'HUD')
-    setObjectOrder('cycle', getObjectOrder('fon')+3)
+    setObjectOrder('cycle', getObjectOrder('fon')+5)
     setProperty("cycle.alpha", 0)
     setTextAlignment('cucle', 'right')
     addLuaText("cycle", true)
@@ -54,7 +54,7 @@ function onSongStart()
     doTweenAlpha('pipsl', 'therates', 0, 1, 'CubeInOut')
     doTweenAlpha('str', 'arrow', 0, 1, 'CubeInOut')
     doTweenAlpha('ico', 'scav', 0, 1, 'CubeInOut')
-    doTweenAlpha('txtRep', 'scav', 0, 1, 'CubeInOut')
+    doTweenAlpha('txtRep', 'txtRep', 0, 1, 'CubeInOut')
     
 
     for i=0,7 do
@@ -72,7 +72,7 @@ function onSongStart()
         for i=0,7 do
             noteTweenAlpha(i+16, i, 1, 1)
         end
-        doTweenAlpha('txtRep', 'scav', 1, 1, 'CubeInOut')
+        doTweenAlpha('txtRep', 'txtRep', 1, 1, 'CubeInOut')
         doTweenAlpha('ico', 'scav', 1, 1, 'CubeInOut')
             doTweenAlpha('gggkarma', 'shit', 1, 1, 'linear')
             doTweenAlpha('hideIconP1', 'iconP1', 0.8, 2, 'linear')
@@ -94,6 +94,7 @@ function onSongStart()
     doTweenAlpha('pipslt10', 'pipslot10', 1, 1, 'CubeInOut')
     doTweenAlpha('pipsl', 'therates', 1, 1, 'CubeInOut')
     doTweenAlpha('str', 'arrow', 1, 1, 'CubeInOut')
+    
     end
     
 end
