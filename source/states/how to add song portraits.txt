@@ -1,0 +1,7 @@
+To add a song portrait via assets put it in the data of the song with the name imgCover, for example:
+assets/shared/data/SONG_Name/imgCover.png
+
+To add it via mods do the same but with the mod folder
+mods/MOD/data/SONG_Name/imgCover.png
+or
+data/SONG_Name/imgCover.png

@@ -2,6 +2,9 @@ package backend;
 
 import sys.FileSystem;
 import tjson.TJSON;
+import backend.Mods;
+import sys.io.File;
+import haxe.io.Path;
 
 class SongLoader {
     public static function loadSongsByCategory(category: String): Array<String> {
@@ -20,80 +23,114 @@ class SongLoader {
         return loadDataByCategoryInOrder(category, "songDescription");
     }
 
+    public static function getSongCoverImage(songName:String):String {
+        var songFolder = songName.toLowerCase();
+        #if MODS_ALLOWED
+        for (mod in Mods.parseList().enabled) {
+            var modDataFolder = 'mods/$mod/data/$songFolder/imgCover.png';
+            if (FileSystem.exists(modDataFolder)) {
+                return modDataFolder;
+            }
+        }
+        #end
+        var sharedDataFolder = 'assets/shared/data/$songFolder/imgCover.png';
+        if (FileSystem.exists(sharedDataFolder)) {
+            return sharedDataFolder;
+        }
+        return '';
+    }
+
     private static function loadDataByCategory(category: String, key: String): Array<String> {
         var dataList: Array<String> = [];
-        var dataFolder: String = "assets/shared/data";
-        var directories = FileSystem.readDirectory(dataFolder);
+        var dataFolders:Array<String> = ['assets/shared/data'];
+        #if MODS_ALLOWED
+        for (mod in Mods.parseList().enabled)
+            dataFolders.push('mods/$mod/data');
+        #end
 
-        for (folder in directories) {
-            var folderPath = dataFolder + "/" + folder;
-            if (FileSystem.isDirectory(folderPath)) {
-                var dataFile = folderPath + "/SongData.json";
-                if (FileSystem.exists(dataFile)) {
-                    try {
-                        var jsonContent = sys.io.File.getContent(dataFile);
-                        var jsonData: Dynamic = TJSON.parse(jsonContent);
-                        if (jsonData.category == category) {
-                            dataList.push(Reflect.field(jsonData, key));
+        for (dataFolder in dataFolders) {
+            if (!FileSystem.exists(dataFolder)) continue;
+            var directories = FileSystem.readDirectory(dataFolder);
+            for (folder in directories) {
+                var folderPath = dataFolder + "/" + folder;
+                if (FileSystem.isDirectory(folderPath)) {
+                    var dataFile = folderPath + "/SongData.json";
+                    if (FileSystem.exists(dataFile)) {
+                        try {
+                            var jsonContent = File.getContent(dataFile);
+                            var jsonData: Dynamic = TJSON.parse(jsonContent);
+                            if (jsonData.category == category) {
+                                dataList.push(Reflect.field(jsonData, key));
+                            }
+                        } catch (e: Dynamic) {
+                            trace("Error reading or parsing file: " + dataFile);
+                            trace(e);
                         }
-                    } catch (e: Dynamic) {
-                        trace("Error reading or parsing file: " + dataFile);
-                        trace(e);
                     }
                 }
             }
         }
-
         return dataList;
     }
 
     private static function loadDataByCategoryInOrder(category: String, key: String): Array<String> {
         var dataList: Array<String> = [];
-        var dataFolder: String = "assets/shared/weeks";
-        var jsonFiles = FileSystem.readDirectory(dataFolder).filter(function(file: String): Bool {
-            return file.endsWith(".json");
-        });
+        var weekFolders:Array<String> = ['assets/shared/weeks'];
+        #if MODS_ALLOWED
+        for (mod in Mods.parseList().enabled)
+            weekFolders.push('mods/$mod/weeks');
+        #end
 
         var orderedSongs: Array<String> = [];
-
-        // Get the order of songs from the weeks JSON files
-        for (jsonFile in jsonFiles) {
-            var filePath = dataFolder + "/" + jsonFile;
-            if (FileSystem.exists(filePath)) {
-                try {
-                    var jsonContent = sys.io.File.getContent(filePath);
-                    var jsonData: Dynamic = TJSON.parse(jsonContent);
-                    var songs: Array<Array<String>> = cast Reflect.field(jsonData, "songs");
-                    for (song in songs) {
-                        orderedSongs.push(song[0]);
+        for (dataFolder in weekFolders) {
+            if (!FileSystem.exists(dataFolder)) continue;
+            var jsonFiles = FileSystem.readDirectory(dataFolder).filter(function(file: String): Bool {
+                return file.endsWith(".json");
+            });
+            for (jsonFile in jsonFiles) {
+                var filePath = dataFolder + "/" + jsonFile;
+                if (FileSystem.exists(filePath)) {
+                    try {
+                        var jsonContent = File.getContent(filePath);
+                        var jsonData: Dynamic = TJSON.parse(jsonContent);
+                        var songs: Array<Array<String>> = cast Reflect.field(jsonData, "songs");
+                        for (song in songs) {
+                            orderedSongs.push(song[0]);
+                        }
+                    } catch (e: Dynamic) {
+                        trace("Error reading or parsing file: " + filePath);
+                        trace(e);
                     }
-                } catch (e: Dynamic) {
-                    trace("Error reading or parsing file: " + filePath);
-                    trace(e);
                 }
             }
         }
 
-        // Get the song data from the data folder
-        var dataFolder: String = "assets/shared/data";
-        var directories = FileSystem.readDirectory(dataFolder);
+        var dataFolders:Array<String> = ['assets/shared/data'];
+        #if MODS_ALLOWED
+        for (mod in Mods.parseList().enabled)
+            dataFolders.push('mods/$mod/data');
+        #end
 
         var allSongs: Map<String, Dynamic> = new Map();
-        for (folder in directories) {
-            var folderPath = dataFolder + "/" + folder;
-            if (FileSystem.isDirectory(folderPath)) {
-                var dataFile = folderPath + "/SongData.json";
-                if (FileSystem.exists(dataFile)) {
-                    try {
-                        var jsonContent = sys.io.File.getContent(dataFile);
-                        var jsonData: Dynamic = TJSON.parse(jsonContent);
-                        if (jsonData.category == category) {
-                            var songName = Reflect.field(jsonData, "song");
-                            allSongs.set(songName, Reflect.field(jsonData, key));
+        for (dataFolder in dataFolders) {
+            if (!FileSystem.exists(dataFolder)) continue;
+            var directories = FileSystem.readDirectory(dataFolder);
+            for (folder in directories) {
+                var folderPath = dataFolder + "/" + folder;
+                if (FileSystem.isDirectory(folderPath)) {
+                    var dataFile = folderPath + "/SongData.json";
+                    if (FileSystem.exists(dataFile)) {
+                        try {
+                            var jsonContent = File.getContent(dataFile);
+                            var jsonData: Dynamic = TJSON.parse(jsonContent);
+                            if (jsonData.category == category) {
+                                var songName = Reflect.field(jsonData, "song");
+                                allSongs.set(songName, Reflect.field(jsonData, key));
+                            }
+                        } catch (e: Dynamic) {
+                            trace("Error reading or parsing file: " + dataFile);
+                            trace(e);
                         }
-                    } catch (e: Dynamic) {
-                        trace("Error reading or parsing file: " + dataFile);
-                        trace(e);
                     }
                 }
             }

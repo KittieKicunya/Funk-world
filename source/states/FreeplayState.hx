@@ -119,10 +119,16 @@ class FreeplayState extends MusicBeatState
         var white2:FlxSprite = new FlxSprite(437, 0);
         white2.makeGraphic(4, 720, FlxColor.WHITE);
         add(white2);
-		imgSong = new FlxSprite(588, 48).loadGraphic(Paths.image("FreeplayMenu/imgFreeplays/" + category + "/" + songsfake[curSelected]));
-		imgSong.updateHitbox();
-		imgSong.antialiasing = true;
-		add(imgSong);
+
+    var coverPath = SongLoader.getSongCoverImage(songsfake[curSelected]);
+    if (coverPath != '') {
+        imgSong = new FlxSprite(588, 48).loadGraphic(coverPath);
+    } else {
+        imgSong = new FlxSprite(588, 48);
+    }
+    imgSong.updateHitbox();
+    imgSong.antialiasing = true;
+    add(imgSong);
 
 
 		grpSongs = new FlxTypedGroup<FlxText>();
@@ -227,7 +233,12 @@ class FreeplayState extends MusicBeatState
 	var holdTime:Float = 0;
 	override function update(elapsed:Float)
 	{
-		imgSong.loadGraphic(Paths.image("FreeplayMenu/imgFreeplays/" + category + "/" + songsfake[curSelected]));
+		var coverPath = SongLoader.getSongCoverImage(songsfake[curSelected]);
+    if (coverPath != '') {
+        imgSong.loadGraphic(coverPath);
+    } else {
+        imgSong.makeGraphic(200, 200, FlxColor.GRAY);
+    }
 		deSongName.text = songs[curSelected].songName;
 		deSongDesc.text = songs[curSelected].songDesc;
 
