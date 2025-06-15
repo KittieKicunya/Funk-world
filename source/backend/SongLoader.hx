@@ -23,9 +23,15 @@ class SongLoader {
         return loadDataByCategoryInOrder(category, "songDescription");
     }
 
-    public static function getSongCoverImage(songName:String):String {
+    public static function getSongCoverImage(songName:String, ?modFolder:String):String {
         var songFolder = songName.toLowerCase();
         #if MODS_ALLOWED
+        if (modFolder != null && modFolder != '') {
+            var modDataFolder = 'mods/$modFolder/data/$songFolder/imgCover.png';
+            if (FileSystem.exists(modDataFolder)) {
+                return modDataFolder;
+            }
+        }
         for (mod in Mods.parseList().enabled) {
             var modDataFolder = 'mods/$mod/data/$songFolder/imgCover.png';
             if (FileSystem.exists(modDataFolder)) {

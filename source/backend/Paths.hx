@@ -238,6 +238,32 @@ class Paths
 		return cacheBitmap(key, parentFolder, bitmap, allowGPU);
 	}
 
+	static public function dataImage(key:String, ?parentFolder:String = null, ?allowGPU:Bool = true):FlxGraphic
+	{
+		// Busca primero en mods/<mod>/data/key.png
+		#if MODS_ALLOWED
+		if (Mods.currentModDirectory != null && Mods.currentModDirectory.length > 0)
+		{
+			var modFile = 'mods/${Mods.currentModDirectory}/data/$key.png';
+			if (FileSystem.exists(modFile))
+				return cacheBitmap('data/$key.png', parentFolder, BitmapData.fromFile(modFile), allowGPU);
+		}
+		for (mod in Mods.getGlobalMods())
+		{
+			var modFile = 'mods/$mod/data/$key.png';
+			if (FileSystem.exists(modFile))
+				return cacheBitmap('data/$key.png', parentFolder, BitmapData.fromFile(modFile), allowGPU);
+		}
+		#end
+
+		var sharedFile = 'assets/shared/data/$key.png';
+		if (FileSystem.exists(sharedFile))
+			return cacheBitmap('data/$key.png', parentFolder, BitmapData.fromFile(sharedFile), allowGPU);
+
+		trace('Bitmap not found: $sharedFile | key: data/$key.png');
+		return null;
+	}
+
 	public static function cacheBitmap(key:String, ?parentFolder:String = null, ?bitmap:BitmapData, ?allowGPU:Bool = true):FlxGraphic
 	{
 		if (bitmap == null)

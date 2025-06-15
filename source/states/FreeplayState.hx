@@ -65,6 +65,8 @@ class FreeplayState extends MusicBeatState
 	override function create()
 	{
 
+		Mods.currentModDirectory = "Funk-world-Extra-scripts";
+		
 		songsfake = SongLoader.loadSongsByCategoryInOrder(category);
 		trace("Songs in category " + category + ": " + songsfake);
 
@@ -120,9 +122,9 @@ class FreeplayState extends MusicBeatState
         white2.makeGraphic(4, 720, FlxColor.WHITE);
         add(white2);
 
-    var coverPath = SongLoader.getSongCoverImage(songsfake[curSelected]);
+    var coverPath = SongLoader.getSongCoverImage(songs[curSelected].songName, songs[curSelected].folder);
     if (coverPath != '') {
-        imgSong = new FlxSprite(588, 48).loadGraphic(coverPath);
+        imgSong = new FlxSprite(588, 48).loadGraphic(Paths.image(coverPath));
     } else {
         imgSong = new FlxSprite(588, 48);
     }
@@ -233,11 +235,9 @@ class FreeplayState extends MusicBeatState
 	var holdTime:Float = 0;
 	override function update(elapsed:Float)
 	{
-		var coverPath = SongLoader.getSongCoverImage(songsfake[curSelected]);
+		var coverPath = SongLoader.getSongCoverImage(songs[curSelected].songName, songs[curSelected].folder);
     if (coverPath != '') {
-        imgSong.loadGraphic(coverPath);
-    } else {
-        imgSong.makeGraphic(200, 200, FlxColor.GRAY);
+        imgSong.loadGraphic(Paths.dataImage('${songs[curSelected].songName.toLowerCase()}/imgCover'));
     }
 		deSongName.text = songs[curSelected].songName;
 		deSongDesc.text = songs[curSelected].songDesc;
@@ -372,8 +372,10 @@ class FreeplayState extends MusicBeatState
 		else if (controls.ACCEPT)
 		{
 			persistentUpdate = false;
-			var songLowercase:String = Paths.formatToSongPath(songs[curSelected].songName);
-			var poop:String = Highscore.formatSong(songLowercase, -1);
+			var songLowercase = Paths.formatToSongPath(songs[curSelected].songName);
+			var poop = Highscore.formatSong(songLowercase, -1);
+			PlayState.SONG = Song.loadFromJson(poop, songLowercase);
+
 			/*#if MODS_ALLOWED
 			if(!FileSystem.exists(Paths.modsJson(songLowercase + '/' + poop)) && !FileSystem.exists(Paths.json(songLowercase + '/' + poop))) {
 			#else
